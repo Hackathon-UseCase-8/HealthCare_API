@@ -1,7 +1,7 @@
 const express = require('express')
 const router = new express.Router()
-const Controller = require('./Controller/roles')
+const Controller = require('./controller/scheduler')
 
-router.get('/list/staff', Controller.getStaffList);
-router.post('/create/staff', Controller.CreateStaff);
+router.get('/list/staff', Controller.getSchedules);
+router.post('/create/staff', Controller.CreateSchedule);
 module.exports = router
