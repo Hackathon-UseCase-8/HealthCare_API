@@ -1,7 +1,8 @@
 const express = require('express')
 const router = new express.Router()
-const itemController = require('./Controller/staff')
+const Controller = require('./Controller/staff')
 
-router.get('/list/staff', itemController.getStaffList);
+router.get('/list/staff', Controller.getStaffList);
+router.post('/create/staff', Controller.CreateStaff);
 
 module.exports = router

@@ -8,6 +8,19 @@ pgclient.connect()
     .catch(err => console.error('PostgreSQL connection error:', err)); // Added error handling for connection
 
 let self = module.exports = {
+    CreateStaff:async(req,res)=>{
+        let {name,staff_id,role_id,shift_id=null,department_id}=req.body;
+        try {
+            let query = `INSERT INTO staff (name, staff_id, role_id, shift_id, department_id) 
+                         VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+            let values = [name, staff_id, role_id, shift_id, department_id];
+            let result = await pgclient.query(query, values);
+            res.send(result.rows[0]); // Return the newly created staff record
+        } catch (error) {
+            console.error("Error in CreateStaff:", error); // Use console.error for errors
+            res.status(500).send("Failed to create staff"); // Send a more specific status code
+        }
+    },
     getStaffList: async (req, res) => {
         try {
             let query = `SELECT * FROM staff`;
